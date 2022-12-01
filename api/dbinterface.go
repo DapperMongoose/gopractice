@@ -1,4 +1,4 @@
-package dbinterface
+package server
 
 import (
 	"database/sql"

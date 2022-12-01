@@ -1,0 +1,49 @@
+<html lang="en">
+    <title></title>
+    <head><title>"Super Click the Button 9000!"</title></head>
+    <body>
+        <h1 style="text-align:center">Super Click the Button 9000!</h1>
+        <div style="text-align:center">
+            <p>Current Count:<br><br><b>{{.CurrentCount}}</b></p>
+        </div>
+        <div style ="text-align:center">
+            <button type="button" id="incrementBtn">Increment</button>
+            <button type="button" id="decrementBtn">Decrement</button>
+        </div>
+        <br>
+        <div style="text-align:center">
+            <button type="button" id="resetBtn">Reset!</button>
+        </div>
+    </body>
+<script>
+    let server = "http://localhost:8080"
+    function sendIncrement(){
+        let request = new XMLHttpRequest();
+        request.open("POST", server + "/increment", false);
+        request.send("");
+        window.location.reload();
+    }
+    let incrementBtn = document.getElementById("incrementBtn");
+    incrementBtn.addEventListener("click", sendIncrement);
+
+    function sendDecrement(){
+        let request = new XMLHttpRequest();
+        request.open("POST", server + "/decrement", false);
+        request.send("");
+        window.location.reload();
+    }
+    let decrementBtn = document.getElementById("decrementBtn");
+    decrementBtn.addEventListener("click", sendDecrement);
+
+    function sendReset(){
+        let request = new XMLHttpRequest();
+        request.open("POST", server + "/reset", false);
+        request.send("");
+        window.location.reload();
+    }
+    let resetBtn = document.getElementById("resetBtn");
+    resetBtn.addEventListener("click", sendReset);
+
+</script>
+</html>
+
