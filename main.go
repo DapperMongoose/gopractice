@@ -12,24 +12,3 @@ func main() {
 	fmt.Println("Server started.  Starting Client...")
 	client.RunClient()
 }
-
-func incrementCounter() error {
-	currentCount, err := api.ReadDB()
-	if err != nil {
-		return err
-	}
-	currentCount++
-	err = api.WriteDB(currentCount)
-	return err
-
-}
-
-func decrementCounter() error {
-	currentCount, err := api.ReadDB()
-	if err != nil {
-		return err
-	}
-	currentCount--
-	err = api.WriteDB(currentCount)
-	return err
-}

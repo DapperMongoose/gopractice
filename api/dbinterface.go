@@ -42,7 +42,7 @@ func ReadDB() (int, error) {
 		var count int
 		err := rows.Scan(&count)
 		if err != nil {
-			return -1, errors.New(fmt.Sprintf("Error parsing data from DB: %s\n posisble DB corruption", err))
+			return -1, errors.New(fmt.Sprintf("Error parsing data from DB: %s\n possible DB corruption", err))
 		}
 		countRows = append(countRows, count)
 	}
@@ -92,7 +92,7 @@ func connect() error {
 
 	// make sure the connection is working, if not we'll fall through and do the connection work
 	if conn != nil {
-		err := pingDB()
+		err := conn.Ping()
 		if err == nil {
 			return nil
 		}
@@ -102,17 +102,11 @@ func connect() error {
 		return err
 	}
 	conn = db
-	err = pingDB()
+	err = conn.Ping()
 	if err != nil {
 		// we had an error, so conn is probably bad, nil it out
 		conn = nil
 		return nil
 	}
-
 	return nil
-}
-func pingDB() error {
-	// open may not actually verify connection, do so manually
-	err := conn.Ping()
-	return err
 }

@@ -66,10 +66,14 @@ func decrementCounter(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	current--
-	err = WriteDB(current)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+
+	// silently do nothing if we try to go below zero.  Just because, there's no harm in it being negative.
+	if current > 0 {
+		current--
+		err = WriteDB(current)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 	w.WriteHeader(http.StatusOK)
 }
